@@ -19,20 +19,21 @@ struct InstallSDK: ParsableCommand {
     @Argument(help: "Project Path")
     var projectpath: String
     
+    @Argument(help: "Project Name")
+    var projectName: String
+    
     func run() throws {
-        //shell(command: "cd \(projectpath)")
-        //Go the project folder
-        //Check if Podfile Exisits
-        // if No then create_a_pod_file
-        // If exsists then update the pod_file
-        // run the pod install command
-        //go_to_project_folder(path: projectpath)
-        //create_pod_file(path: projectpath)
-        //try add_pointzi_to_pod(fileName: "Podfile")
-        //pod_install()
-        //run_ruby_script()
+       copy_xcode_helper_script(projectPath: projectpath)
+       /*
+       go_to_project_folder(path: projectpath)
+       
+        if check_If_file_exists_in_CWD(fileName: projectName) &&  !check_If_file_exists_in_CWD(fileName: "Podfile") {
+            create_pod_file()
+        }
         
-        print("Install sdk at \(projectpath)")
-      
+        try add_pointzi_to_pod()
+        pod_install()
+        create_bridging_header_file(projectName: projectName)
+       */
     }
 }
