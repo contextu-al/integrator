@@ -33,21 +33,46 @@ func check_If_file_exists_in_CWD(fileName: String) -> Bool {
 }
 
 func copy_xcode_helper_script(projectPath: String) {
-//    print(FileManager.default.currentDirectoryPath)
-//    let r = shell(command: "curl https://raw.githubusercontent.com/Apparence-io/pal-plugin/master/LICENSE")
-//    //let r = shell(command: "cp xcodehelper.rb \(projectPath)")
-//    print(r)
-     shell(command: "curl https://raw.githubusercontent.com/Apparence-io/pal-plugin/master/LICENSE -o file.rb")
+    print(FileManager.default.currentDirectoryPath)
+    //let r = shell(command: "curl https://raw.githubusercontent.com/Apparence-io/pal-plugin/master/LICENSE")
+    //let r = shell(command: "cp xcodehelper.rb \(projectPath)")
+    //print(r)
+    // shell(command: "curl https://gitlab.com/pointzi/sdks/integratorscripts/-/raw/main/xcodehelper.rb")
 //    _ = shell(command: "touch xcodehelper.rb")
 //    let filname = FileManager.default.currentDirectoryPath.appending("/xcodehelper.rb")
+//
 //    do {
-//       try xcoderhelpScripString.write(to: URL(string: filname)!, atomically: true, encoding: String.Encoding.utf8)
+//       try xcoderhelpScripString.write(to: URL(string: "file://"+filname)!, atomically: true, encoding: String.Encoding.utf8)
 //    }
 //    catch {
-//
+//        print("In error")
+//        print(error.localizedDescription)
 //    }
+    
+    let scriptdata = download_xcode_helper_string()
+    _ = shell(command: "touch xcodehelper.rb")
+    let filname = FileManager.default.currentDirectoryPath.appending("/xcodehelper.rb")
+     do {
+          try scriptdata.write(to: URL(string: "file://"+filname)!, atomically: true, encoding: String.Encoding.utf8)
+     }
+    catch { print("In error")
+        print(error.localizedDescription)}
      
 }
+
+func download_xcode_helper_string() -> String {
+    let results =  shell(command: "curl https://gitlab.com/pointzi/sdks/integratorscripts/-/raw/main/xcodehelper.rb")
+    let strippedData = stripData(data: results)
+    return strippedData
+}
+
+func stripData(data: String) -> String {
+    guard let startIndex = data.range(of: "Start Script") else { return "" }
+    guard let endIndex = data.range(of: "End Script") else { return "" }
+    let substring = data[startIndex.upperBound..<endIndex.lowerBound]
+    return String(substring)
+}
+
 
 func run_ruby_script() {
    let r =  shell(command: "ruby Testruby.rb")
