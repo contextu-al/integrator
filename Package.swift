@@ -9,6 +9,9 @@ let package = Package(
         .macOS(.v10_15)
             
     ],
+    products: [
+           .executable(name: "integrator", targets: ["Integrator"])
+       ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),

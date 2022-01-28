@@ -23,6 +23,11 @@ func go_to_project_folder(path: String) {
     FileManager.default.changeCurrentDirectoryPath(path)
 }
 
+func createSampleProject(projectName: String) {
+   _ = shell(command: "rm -rf \(projectName)")
+   _ = shell(command: "unzip \(projectName)")
+}
+
 func check_If_file_exists_in_CWD(fileName: String) -> Bool {
     let fileManager = FileManager.default
     if fileManager.fileExists(atPath: fileName) {
@@ -32,26 +37,17 @@ func check_If_file_exists_in_CWD(fileName: String) -> Bool {
     return false
 }
 
-func copy_xcode_helper_script(projectPath: String) {
-    print(FileManager.default.currentDirectoryPath)
-    //let r = shell(command: "curl https://raw.githubusercontent.com/Apparence-io/pal-plugin/master/LICENSE")
-    //let r = shell(command: "cp xcodehelper.rb \(projectPath)")
-    //print(r)
-    // shell(command: "curl https://gitlab.com/pointzi/sdks/integratorscripts/-/raw/main/xcodehelper.rb")
-//    _ = shell(command: "touch xcodehelper.rb")
-//    let filname = FileManager.default.currentDirectoryPath.appending("/xcodehelper.rb")
-//
-//    do {
-//       try xcoderhelpScripString.write(to: URL(string: "file://"+filname)!, atomically: true, encoding: String.Encoding.utf8)
-//    }
-//    catch {
-//        print("In error")
-//        print(error.localizedDescription)
-//    }
+func gitInit() {
+    _ = shell(command: "git init")
+    _ = shell(command: "git add .")
+    _ = shell(command: "git commit -m \"Initial commit\"")
     
+}
+
+func copy_xcode_helper_script() {
     let scriptdata = download_xcode_helper_string()
-    _ = shell(command: "touch xcodehelper.rb")
-    let filname = FileManager.default.currentDirectoryPath.appending("/xcodehelper.rb")
+    _ = shell(command: "touch xcodeconfigurer.rb")
+    let filname = FileManager.default.currentDirectoryPath.appending("/xcodeconfigurer.rb")
      do {
           try scriptdata.write(to: URL(string: "file://"+filname)!, atomically: true, encoding: String.Encoding.utf8)
      }
@@ -74,8 +70,10 @@ func stripData(data: String) -> String {
 }
 
 
-func run_ruby_script() {
-   let r =  shell(command: "ruby Testruby.rb")
+func run_xcode_script(projectPath: String,projectName: String) {
+   let bridgingHeader =  projectName + "-Bridging-Header.h"
+   let projectFullPath = projectPath + "/" + projectName + "/" + projectName + ".xcodeproj"
+   let r =  shell(command: "ruby xcodeconfigurer.rb \(projectFullPath) \(projectName) \(bridgingHeader)")
    print(r)
 }
 
@@ -103,3 +101,31 @@ main_target.add_file_references([file])
 #finally, save the project
 project.save
 """
+
+
+/*
+ let xcoderhelpScripString = """
+ #import the xcodeproj ruby gem
+ require "xcodeproj"
+ #define the path to your .xcodeproj file
+
+ projectpath = ARGV[0]
+ projectname = ARGV[1]
+ bridgingheader = ARGV[2]
+ puts projectpath       #prints test1
+ puts projectname
+ puts bridgingheader
+
+ #open the xcode project
+ project = Xcodeproj::Project.open(project_path)
+ group = project.main_group[projectname]
+
+ #get the file reference for the file to add
+ file = group.new_file(bridgingheader)
+ #add the file reference to the projects first target
+ main_target = project.targets.first
+ main_target.add_file_references([file])
+ #finally, save the project
+ project.save
+ """
+ */

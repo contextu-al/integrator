@@ -4,7 +4,7 @@ import Foundation
 
 struct Integrator: ParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName:"Info",
+        commandName:"contextual",
         abstract: "Integrator SDK Integrator",
         version: "0.0.1",
         subcommands: [Add.self,InstallSDK.self])

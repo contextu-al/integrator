@@ -23,17 +23,32 @@ struct InstallSDK: ParsableCommand {
     var projectName: String
     
     func run() throws {
-       copy_xcode_helper_script(projectPath: projectpath)
-       /*
-       go_to_project_folder(path: projectpath)
+        
+        let finalPath = "\(projectpath)/\(projectName)"
+        
+        go_to_project_folder(path: projectpath)
+        createSampleProject(projectName: projectName)
+        print(finalPath)
+        go_to_project_folder(path: finalPath)
+        
+        //Copy the script from the remote
+        copy_xcode_helper_script()
        
+        //Pod Prechecking
         if check_If_file_exists_in_CWD(fileName: projectName) &&  !check_If_file_exists_in_CWD(fileName: "Podfile") {
             create_pod_file()
         }
         
+        //Pod Step
         try add_pointzi_to_pod()
         pod_install()
+        
+        //Git -> Temporary step
+        gitInit()
+        
+        // Bridging
         create_bridging_header_file(projectName: projectName)
-       */
+        run_xcode_script(projectPath: projectpath, projectName: projectName)
+       
     }
 }
