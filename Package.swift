@@ -10,7 +10,7 @@ let package = Package(
             
     ],
     products: [
-           .executable(name: "integrator", targets: ["Integrator"])
+           .executable(name: "Integrator", targets: ["Integrator"])
        ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.

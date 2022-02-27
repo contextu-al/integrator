@@ -36,15 +36,11 @@ func create_bridging_header_file(projectName: String) {
     print(protectFullName)
     let filename = "\(protectFullName[0])-Bridging-Header.h"
     let result = shell(command: "touch \(filename)")
+    let imr = shell(command: "echo >> \(filename)")
     _ = shell(command: "mv \(filename) \(projectName)")
+    print("Import results \(imr)")
     print(result)
 }
 
-func add_bridging_headers() {
-    
-}
 
-func add_linker_files() {
-    
-}
 

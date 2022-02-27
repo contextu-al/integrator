@@ -19,6 +19,28 @@ func read_file(fileName: String ,pattern:String , replacemantString: String) thr
       }
 }
 
+func replace_content(fileName: String,fileContent: String,pattern:String , replacemantString: String) throws {
+        let newcontent =  fileContent.replacingOccurrences(of: pattern, with: replacemantString)
+        let fileHandle = try FileHandle(forUpdating: URL(fileURLWithPath: fileName))
+        fileHandle.write(newcontent.data(using: .utf8)!)
+        try fileHandle.close()
+      
+}
+
+func search_pattern(fileName: String ,pattern:String , replacemantString: String) throws {
+    let contents = try String(contentsOfFile: fileName)
+    let result  = contents.range(of: pattern,options: .regularExpression)
+   
+    if let resultRange = result {
+        let range = resultRange.lowerBound..<resultRange.upperBound
+        let matchedContent  = contents[range]
+        try replace_content(fileName: fileName, fileContent: contents, pattern: String(matchedContent), replacemantString: replacemantString)
+        
+        
+        print(contents[range])
+    }
+}
+
 func go_to_project_folder(path: String) {
     FileManager.default.changeCurrentDirectoryPath(path)
 }
@@ -77,6 +99,7 @@ func run_xcode_script(projectPath: String,projectName: String) {
    print(r)
 }
 
+/*
 let xcoderhelpScripString = """
 #import the xcodeproj ruby gem
 require "xcodeproj"
@@ -101,6 +124,7 @@ main_target.add_file_references([file])
 #finally, save the project
 project.save
 """
+*/
 
 
 /*

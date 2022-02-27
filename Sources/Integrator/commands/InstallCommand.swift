@@ -28,27 +28,52 @@ struct InstallSDK: ParsableCommand {
         
         go_to_project_folder(path: projectpath)
         createSampleProject(projectName: projectName)
-        print(finalPath)
         go_to_project_folder(path: finalPath)
-        
-        //Copy the script from the remote
         copy_xcode_helper_script()
        
+        
+        performPodsPreCheck(projectName: projectName)
+        try addPodSteps()
+        createTemporaryGitRepo()
+        addBridgingHeaders(projectName: projectName, projectPath: projectpath)
+        go_to_project_folder(path: finalPath+"/"+projectName)
+        try performSwiftIntegraton()
+         
+        
+    }
+    
+    func performPodsPreCheck(projectName: String) {
         //Pod Prechecking
         if check_If_file_exists_in_CWD(fileName: projectName) &&  !check_If_file_exists_in_CWD(fileName: "Podfile") {
             create_pod_file()
         }
-        
-        //Pod Step
+    }
+    
+    func addPodSteps() throws {
         try add_pointzi_to_pod()
         pod_install()
-        
-        //Git -> Temporary step
+    }
+    
+    func createTemporaryGitRepo() {
         gitInit()
         
-        // Bridging
-        create_bridging_header_file(projectName: projectName)
-        run_xcode_script(projectPath: projectpath, projectName: projectName)
-       
     }
+    
+   
+   
+    func performSwiftIntegraton() throws {
+        do {
+            try add_Intializer_In_AppDelegate(projectName : projectName)
+            
+        } catch {
+                print(error)
+        }
+        
+    }
+}
+
+
+func addBridgingHeaders(projectName: String ,projectPath: String) {
+    create_bridging_header_file(projectName: projectName)
+    run_xcode_script(projectPath: projectPath, projectName: projectName)
 }
