@@ -24,23 +24,6 @@ func add_pointzi_to_pod()  throws {
     try read_file(fileName: "Podfile", pattern: pattern, replacemantString: replacemantString)
 }
 
-func add_pointzi_initializer()  throws {
-    
-}
-
-func create_bridging_header_file(projectName: String) {
-    let protectFullName =  projectName.split(separator: ".")
-    print("====create_bridging_header_file====")
-    let result1 = shell(command: "pwd")
-    print(result1)
-    print(protectFullName)
-    let filename = "\(protectFullName[0])-Bridging-Header.h"
-    let result = shell(command: "touch \(filename)")
-    let imr = shell(command: "echo >> \(filename)")
-    _ = shell(command: "mv \(filename) \(projectName)")
-    print("Import results \(imr)")
-    print(result)
-}
 
 
 

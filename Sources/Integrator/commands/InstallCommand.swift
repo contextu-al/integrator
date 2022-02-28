@@ -35,7 +35,7 @@ struct InstallSDK: ParsableCommand {
         performPodsPreCheck(projectName: projectName)
         try addPodSteps()
         createTemporaryGitRepo()
-        addBridgingHeaders(projectName: projectName, projectPath: projectpath)
+        try addBridgingHeaders(projectName: projectName, projectPath: projectpath)
         go_to_project_folder(path: finalPath+"/"+projectName)
         try performSwiftIntegraton()
          
@@ -44,7 +44,7 @@ struct InstallSDK: ParsableCommand {
     
     func performPodsPreCheck(projectName: String) {
         //Pod Prechecking
-        if check_If_file_exists_in_CWD(fileName: projectName) &&  !check_If_file_exists_in_CWD(fileName: "Podfile") {
+        if check_If_file_exists_at(fileName: projectName) &&  !check_If_file_exists_at(fileName: "Podfile") {
             create_pod_file()
         }
     }
@@ -73,7 +73,7 @@ struct InstallSDK: ParsableCommand {
 }
 
 
-func addBridgingHeaders(projectName: String ,projectPath: String) {
-    create_bridging_header_file(projectName: projectName)
-    run_xcode_script(projectPath: projectPath, projectName: projectName)
+func addBridgingHeaders(projectName: String ,projectPath: String) throws {
+    try create_bridging_header_file(projectName: projectName)
+    add_headers_to_xcode_settings(projectPath: projectPath, projectName: projectName)
 }
