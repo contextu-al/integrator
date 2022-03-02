@@ -21,7 +21,7 @@ func pod_install() {
 func add_pointzi_to_pod()  throws {
     let pattern = "use_frameworks!"
     let replacemantString = "use_frameworks!\n pod 'pointzi'"
-    try read_file(fileName: "Podfile", pattern: pattern, replacemantString: replacemantString)
+    try read_n_replace_file(fileName: "Podfile", pattern: pattern, replacemantString: replacemantString)
 }
 
 

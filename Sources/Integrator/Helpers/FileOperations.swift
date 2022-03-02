@@ -6,9 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 
-func read_file(fileName: String ,pattern:String , replacemantString: String) throws {
+
+func read_file_from_bundle(){
+//    let processymURL = Bundle.module.url(forResource: "process_yaml", withExtension: "sh")
+//    let parseymlURL = Bundle.main.url(forResource: "parse_yaml", withExtension: "sh")
+
+   // let r  = shell(command: "sh process_yaml.sh config.yml")
+
+}
+
+
+func read_n_replace_file(fileName: String ,pattern:String , replacemantString: String) throws {
       let contents = try String(contentsOfFile: fileName)
       var newcontent = ""
       if contents.contains(pattern) {
@@ -25,6 +36,15 @@ func replace_content(fileName: String,fileContent: String,pattern:String , repla
         fileHandle.write(newcontent.data(using: .utf8)!)
         try fileHandle.close()
       
+}
+
+func read_file(filePath: String) throws -> String {
+    let contents = try? String(contentsOfFile: filePath)
+    if let data = contents {
+        return data
+    }
+    
+    return ""
 }
 
 func file_append(fileName: String,fileContent: String) throws {

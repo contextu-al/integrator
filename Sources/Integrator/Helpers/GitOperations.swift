@@ -19,4 +19,6 @@ func gitInit() {
     
 }
 
-
+func gitClone(url : String) {
+  _ = shell(command: "git clone \(url)")
+}

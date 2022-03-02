@@ -16,31 +16,51 @@ struct InstallSDK: ParsableCommand {
         )
     }
     
-    @Argument(help: "Project Path")
-    var projectpath: String
+    //@Argument(help: "Project Path")
+    //var projectpath: String
     
-    @Argument(help: "Project Name")
-    var projectName: String
+    //@Argument(help: "Project Name")
+    //var projectName: String
+    
+    @Argument(help: "Yaml Config path")
+    var configYmlPath: String
     
     func run() throws {
-        let finalPath = "\(projectpath)/\(projectName)"
         
-        go_to_project_folder(path: projectpath)
-        createSampleProject(projectName: projectName)
+        let configYmlData = try? read_file(filePath: configYmlPath)
+        var configYml = ConfigDetails()
+        
+        if let ymlData = configYmlData {
+            guard let result = try? decodeConfigYML(ymlString: ymlData)?.integrator else {
+                return
+            }
+            
+            configYml = result
+        }
+        
+        let finalPath = "\(configYml.path)/\(configYml.name)"
+
+        print("===\(finalPath)=====")
+        
+        go_to_project_folder(path: configYml.path)
+        
+        //gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
+        
+        createSampleProject(projectName: configYml.name)
         
         go_to_project_folder(path: finalPath)
         copy_xcode_helper_script()
         
-        performPodsPreCheck(projectName: projectName)
+        performPodsPreCheck(projectName: configYml.name)
         try addPodSteps()
         
         createTemporaryGitRepo()
-        try addBridgingHeaders(projectName: projectName, projectPath: projectpath)
+        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
        
-        go_to_project_folder(path: finalPath+"/"+projectName)
-        try performSwiftIntegraton()
+        go_to_project_folder(path: finalPath+"/"+configYml.name)
+        try performSwiftIntegraton(projectName: configYml.name)
         
-        openXcodeProject(path: finalPath ,name: projectName)
+        openXcodeProject(path: finalPath ,name: configYml.name)
     }
     
     func performPodsPreCheck(projectName: String) {
@@ -60,7 +80,7 @@ struct InstallSDK: ParsableCommand {
         gitInit()
     }
    
-    func performSwiftIntegraton() throws {
+    func performSwiftIntegraton(projectName: String) throws {
         do {
             try add_Intializer_In_AppDelegate(projectName : projectName)
                 replace_bases_classes()
