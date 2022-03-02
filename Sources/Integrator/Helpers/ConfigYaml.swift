@@ -16,6 +16,7 @@ struct ConfigDetails : Codable {
     var projectname: String?
     var projectpath: String?
     var giturl: String?
+    var installpath: String?
     var appkey: String?
     var controllers: String?
     
@@ -42,6 +43,14 @@ struct ConfigDetails : Codable {
         if let key = appkey {
             return key
         }
+        return ""
+    }
+    
+    var install_path : String {
+        if let installpath = installpath {
+            return installpath
+        }
+        
         return ""
     }
 }

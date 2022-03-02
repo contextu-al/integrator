@@ -12,9 +12,9 @@ let projectPath = "/Users/ganeshfaterpekar/Documents/SaiProjects/Development/Poi
 
 final class Swift_Integraton_test : XCTestCase {
     
-    func xtestAdd_Initalizer_Step_Updated_AppDelegate() throws {
+    func testAdd_Initalizer_Step_Updated_AppDelegate() throws {
         go_to_project_folder(path:projectPath)
-        try add_Intializer_In_AppDelegate(projectName: "TestIntergrator")
+        try add_Intializer_In_AppDelegate(projectName: "TestIntergrator", app_key: "Ganesh_test")
         
     }
    
@@ -51,5 +51,9 @@ final class Swift_Integraton_test : XCTestCase {
         
         let configYmlData = try? read_file(filePath: "/Users/ganeshfaterpekar/Desktop/config.yml")
         try decodeConfigYML(ymlString: configYmlData!)
+    }
+    
+    func test_install_from_git() throws {
+        try InstallSDK().install_On_Git_project()
     }
 }

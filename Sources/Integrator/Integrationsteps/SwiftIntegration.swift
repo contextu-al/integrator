@@ -14,11 +14,13 @@ let searchExpression = ".*didFinishLaunchingWithOptions.*->\\sBool\\s*\\n*\\{"
 let replacemantString = """
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   
- Pointzi.sharedInstance().registerInstall(forApp: "Ganesh_test", withDebugMode: true)
+ Pointzi.sharedInstance().registerInstall(forApp: "MY_APP_KEY", withDebugMode: true)
 """
 
 
-func add_Intializer_In_AppDelegate(projectName : String) throws {
+func add_Intializer_In_AppDelegate(projectName : String , app_key:String) throws {
+    let intializerString = replacemantString.replacingOccurrences(of: "MY_APP_KEY", with: app_key)
+    
     try search_pattern(fileName: "AppDelegate.swift", pattern: searchExpression, replacemantString: replacemantString)
 }
 

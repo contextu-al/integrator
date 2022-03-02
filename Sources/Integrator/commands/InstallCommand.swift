@@ -26,7 +26,7 @@ struct InstallSDK: ParsableCommand {
     var configYmlPath: String
     
     func run() throws {
-        
+        /*
         let configYmlData = try? read_file(filePath: configYmlPath)
         var configYml = ConfigDetails()
         
@@ -38,29 +38,79 @@ struct InstallSDK: ParsableCommand {
             configYml = result
         }
         
-        let finalPath = "\(configYml.path)/\(configYml.name)"
+        var finalPath = "\(configYml.path)/\(configYml.name)"
 
         print("===\(finalPath)=====")
         
-        go_to_project_folder(path: configYml.path)
+        if configYml.path != nil {
+            go_to_project_folder(path: configYml.path)
+            
+            //gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
+            
+            createSampleProject(projectName: configYml.name)
+            
+            go_to_project_folder(path: finalPath)
+            copy_xcode_helper_script()
+            
+            performPodsPreCheck(projectName: configYml.name)
+            try addPodSteps()
+            
+            createTemporaryGitRepo()
+            try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
+           
+            go_to_project_folder(path: finalPath+"/"+configYml.name)
+            try performSwiftIntegraton(projectName: configYml.name)
+            
+            openXcodeProject(path: finalPath ,name: configYml.name)
+        }
+        else {
+            go_to_project_folder(path: configYml.install_path)
+            gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
+            
+            finalPath = "\(configYml.install_path)/\(configYml.name.lowercased())"
+            go_to_project_folder(path: finalPath)
+            copy_xcode_helper_script()
+        }
+        */
+        try install_On_Git_project(configFilePath: configYmlPath)
+    
+
+    }
+    
+    func install_On_Git_project(configFilePath: String = "/Users/ganeshfaterpekar/Desktop/config1.yml") throws {
+        let configYmlData = try? read_file(filePath: configFilePath)
+        var configYml = ConfigDetails()
         
-        //gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
+        if let ymlData = configYmlData {
+            guard let result = try? decodeConfigYML(ymlString: ymlData)?.integrator else {
+                return
+            }
+            
+            configYml = result
+        }
+    
+        go_to_project_folder(path: configYml.install_path)
+        gitClone(url:configYml.git)
         
-        createSampleProject(projectName: configYml.name)
-        
+        let finalPath = "\(configYml.install_path)/\(configYml.name.lowercased())"
         go_to_project_folder(path: finalPath)
         copy_xcode_helper_script()
         
         performPodsPreCheck(projectName: configYml.name)
         try addPodSteps()
         
-        createTemporaryGitRepo()
-        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
-       
+        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.install_path)
+        
         go_to_project_folder(path: finalPath+"/"+configYml.name)
-        try performSwiftIntegraton(projectName: configYml.name)
+        try performSwiftIntegraton(projectName: configYml.name, appkey: configYml.key) 
         
         openXcodeProject(path: finalPath ,name: configYml.name)
+        
+    }
+    
+    
+    func install_On_local_project() {
+        
     }
     
     func performPodsPreCheck(projectName: String) {
@@ -80,9 +130,9 @@ struct InstallSDK: ParsableCommand {
         gitInit()
     }
    
-    func performSwiftIntegraton(projectName: String) throws {
+    func performSwiftIntegraton(projectName: String , appkey: String) throws {
         do {
-            try add_Intializer_In_AppDelegate(projectName : projectName)
+            try add_Intializer_In_AppDelegate (projectName : projectName, app_key: appkey)
                 replace_bases_classes()
             
         } catch {
