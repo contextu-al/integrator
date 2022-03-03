@@ -36,7 +36,19 @@ integrator:
   appkey: APP_KEY
   controllers: ["*"]
 ```
-## Config Yml Examples
+## 
+
+## Examples 
+
+
+| Requirement                        |   Implemented        | Comments                                           |
+| -------------                      |    :-------------:   | :-----                                             |
+| projectname                        | :white_check_mark:    |     |
+| projectpath 13                     | :white_check_mark:    |                     |
+| giturl Patterns                    | :white_check_mark:    |  |
+| appkey Management                  | :white_check_mark:    |    |
+| controllers                        | :white_check_mark:    |  |
+
 
 |    Key        |             Comments                                         | 
 | ------------- :-------------------------------------------------------------:|                                              
