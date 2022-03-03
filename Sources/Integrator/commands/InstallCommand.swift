@@ -16,68 +16,15 @@ struct InstallSDK: ParsableCommand {
         )
     }
     
-    //@Argument(help: "Project Path")
-    //var projectpath: String
-    
-    //@Argument(help: "Project Name")
-    //var projectName: String
-    
     @Argument(help: "Yaml Config path")
     var configYmlPath: String
     
     func run() throws {
-        /*
-        let configYmlData = try? read_file(filePath: configYmlPath)
-        var configYml = ConfigDetails()
-        
-        if let ymlData = configYmlData {
-            guard let result = try? decodeConfigYML(ymlString: ymlData)?.integrator else {
-                return
-            }
-            
-            configYml = result
-        }
-        
-        var finalPath = "\(configYml.path)/\(configYml.name)"
-
-        print("===\(finalPath)=====")
-        
-        if configYml.path != nil {
-            go_to_project_folder(path: configYml.path)
-            
-            //gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
-            
-            createSampleProject(projectName: configYml.name)
-            
-            go_to_project_folder(path: finalPath)
-            copy_xcode_helper_script()
-            
-            performPodsPreCheck(projectName: configYml.name)
-            try addPodSteps()
-            
-            createTemporaryGitRepo()
-            try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
-           
-            go_to_project_folder(path: finalPath+"/"+configYml.name)
-            try performSwiftIntegraton(projectName: configYml.name)
-            
-            openXcodeProject(path: finalPath ,name: configYml.name)
-        }
-        else {
-            go_to_project_folder(path: configYml.install_path)
-            gitClone(url:"https://gitlab.com/pointzi/sdks/ios/testintegrator.git")
-            
-            finalPath = "\(configYml.install_path)/\(configYml.name.lowercased())"
-            go_to_project_folder(path: finalPath)
-            copy_xcode_helper_script()
-        }
-        */
-        try install_On_Git_project(configFilePath: configYmlPath)
-    
+        try install_contextual_sdk(configFilePath: configYmlPath)
 
     }
     
-    func install_On_Git_project(configFilePath: String) throws {
+    func install_contextual_sdk(configFilePath: String) throws {
         let configYmlData = try? read_file(filePath: configFilePath)
         var configYml = ConfigDetails()
         
@@ -96,7 +43,6 @@ struct InstallSDK: ParsableCommand {
         }
        
         var finalPath = "\(configYml.path)/\(configYml.name)"
-        
         
         if (!check_If_file_exists_at(fileName: finalPath + "/" + configYml.name + ".xcodeproj")) {
            let tempPath = "\(configYml.path)/\(configYml.name.lowercased())"
@@ -148,8 +94,6 @@ struct InstallSDK: ParsableCommand {
     func performSwiftIntegraton(projectName: String , appkey: String , controllers:[String]) throws {
         do {
             try add_Intializer_In_AppDelegate (projectName : projectName, app_key: appkey)
-               
-            
         } catch {
                 print(error)
         }

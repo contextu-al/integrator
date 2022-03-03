@@ -54,7 +54,7 @@ final class Swift_Integraton_test : XCTestCase {
     }
     
     func test_install_from_git() throws {
-        try InstallSDK().install_On_Git_project(configFilePath: "/Users/ganeshfaterpekar/Desktop/config.yml")
+        try InstallSDK().install_contextual_sdk(configFilePath: "/Users/ganeshfaterpekar/Desktop/config.yml")
     }
     
     
