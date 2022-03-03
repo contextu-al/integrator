@@ -77,7 +77,7 @@ struct InstallSDK: ParsableCommand {
 
     }
     
-    func install_On_Git_project(configFilePath: String = "/Users/ganeshfaterpekar/Desktop/config1.yml") throws {
+    func install_On_Git_project(configFilePath: String = "/Users/ganeshfaterpekar/Desktop/config.yml") throws {
         let configYmlData = try? read_file(filePath: configFilePath)
         var configYml = ConfigDetails()
         
@@ -89,17 +89,32 @@ struct InstallSDK: ParsableCommand {
             configYml = result
         }
     
-        go_to_project_folder(path: configYml.install_path)
+        go_to_project_folder(path: configYml.path)
         gitClone(url:configYml.git)
         
-        let finalPath = "\(configYml.install_path)/\(configYml.name.lowercased())"
+       //var finalPath = "\(configYml.path)/\(configYml.name.lowercased())"
+        
+        var finalPath = "\(configYml.path)/\(configYml.name)"
+        
+        
+        if (!check_If_file_exists_at(fileName: finalPath + "/" + configYml.name + ".xcodeproj")) {
+           let tempPath = "\(configYml.path)/\(configYml.name.lowercased())"
+           if(check_If_file_exists_at(fileName: tempPath + "/" + configYml.name + ".xcodeproj")) {
+               finalPath = tempPath
+           } else {
+                 print("Project Name doesn't exsists")
+                 return ;
+              }
+        }
+        
+        
         go_to_project_folder(path: finalPath)
         copy_xcode_helper_script()
         
         performPodsPreCheck(projectName: configYml.name)
         try addPodSteps()
         
-        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.install_path)
+        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
         
         go_to_project_folder(path: finalPath+"/"+configYml.name)
         try performSwiftIntegraton(projectName: configYml.name, appkey: configYml.key) 

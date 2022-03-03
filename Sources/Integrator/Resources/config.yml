@@ -1,6 +1,0 @@
-integrator:
-  projectname: TestIntegrator
-  projectpath: /path_to_project
-  giturl: https
-  appkey: Ganesh_test
-  controllers: UIViewController

@@ -16,7 +16,6 @@ struct ConfigDetails : Codable {
     var projectname: String?
     var projectpath: String?
     var giturl: String?
-    var installpath: String?
     var appkey: String?
     var controllers: String?
     
@@ -46,13 +45,6 @@ struct ConfigDetails : Codable {
         return ""
     }
     
-    var install_path : String {
-        if let installpath = installpath {
-            return installpath
-        }
-        
-        return ""
-    }
 }
 
 func decodeConfigYML(ymlString : String) throws -> ConfigYml? {
@@ -61,7 +53,6 @@ func decodeConfigYML(ymlString : String) throws -> ConfigYml? {
     
     guard let _ = result.integrator?.projectname ,
           let _ = result.integrator?.projectpath ,
-          let _ = result.integrator?.giturl ,
           let _ = result.integrator?.appkey else {
          print("failed")
          return nil

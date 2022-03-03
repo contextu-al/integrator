@@ -9,13 +9,13 @@
 import Foundation
 
 func create_pod_file(){
-    let result = shell(command: "pod init")
-    print(result)
+    _ = shell(command: "pod init")
+   
 }
 
 func pod_install() {
-    let result = shell(command: "pod install")
-    print(result)
+    _  = shell(command: "pod install")
+    
 }
 
 func add_pointzi_to_pod()  throws {

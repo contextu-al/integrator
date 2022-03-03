@@ -61,9 +61,6 @@ func search_pattern(fileName: String ,pattern:String , replacemantString: String
         let range = resultRange.lowerBound..<resultRange.upperBound
         let matchedContent  = contents[range]
         try replace_content(fileName: fileName, fileContent: contents, pattern: String(matchedContent), replacemantString: replacemantString)
-        
-        
-        print(contents[range])
     }
 }
 
