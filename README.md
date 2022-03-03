@@ -44,8 +44,8 @@ integrator:
 | Requirement                        |   Implemented        | Comments                                           |
 | -------------                      |    :-------------:   | :-----                                             |
 | projectname                        | Name of the Project     |     |
-| projectpath 13                     | Path to the project      |                     |
-| giturl                             | :white_check_mark:    |  |
+| projectpath                        | Path to the project      |                     |
+| giturl                             | Path to the project repo. If provided will clone the project to `projectpath`    |  |
 | appkey                             | :white_check_mark:    |    |
 | controllers                        | :white_check_mark:    |  |
 
