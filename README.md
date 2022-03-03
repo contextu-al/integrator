@@ -36,19 +36,27 @@ integrator:
   appkey: APP_KEY
   controllers: ["*"]
 ```
-## Config Yml Examples
 
-|    Key        |             Comments                                         | 
-| ------------- :-------------------------------------------------------------:|                                              
-| projectname   | Name of the Project                                          | 
-| projectpath   | Path to the project                                          |                       
-| giturl        | Path to the project repo. If provided will clone the project to `projectpath`|            
-| appkey        | App key, It avialable in the dashboard   |                                         |       
-| controllers   | Arrays of the UIViewControllers to replace   |
-|               | Example:
-|               |   `*` integrates PointSDK with all the UIViewControllers   |
-|               |   `name` - integrates PointSDK with given controller eg: controllers: ["LoginViewController"]   | 
-|               |   `pattern` - replaces the controllers matching the pattern eg controllers: ["Login*"]    |
+### Config yml details  
+
+
+| Key                        |   Comments        |
+| -------------                      |    :-------------:   | 
+| projectname                        | Name of the Project     |    
+| projectpath                        | Path to the project      |                     
+| giturl                             | Path to the project repo. If provided will clone the project into `projectpath`    |  
+| appkey                             | App key, It's avialable in the dashboard    |    
+| controllers                        | Arrays of the UIViewControllers that integrates PointziSDK   |  
+
+### Congfiurations
+
+| Key            |   Example        |
+| -------------  | :-------------:   | 
+| controllers    |                   | 
+|  `*`           |  integrates Pointzi SDK with all the UIViewControllers     |     
+|  `name`        |  integrates Point SDK with the given controller eg: controllers: ["LoginViewController"]  |                     
+|  `pattern`     |  replaces the controllers matching the pattern eg controllers: ["Login*"]     |  
+
                 
                                
                   
