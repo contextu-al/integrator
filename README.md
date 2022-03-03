@@ -37,8 +37,7 @@ integrator:
   controllers: ["*"]
 ```
 
-
-## Config yml  
+### Config yml details  
 
 
 | Key                        |   Comments        |
@@ -49,12 +48,14 @@ integrator:
 | appkey                             | App key, It's avialable in the dashboard    |    
 | controllers                        | Arrays of the UIViewControllers that integrates PointziSDK   |  
 
+### Examples
 
-| Key                        |   Example        |
-| -------------                      |    :-------------:   | 
-| controllers                        | `*` integrates PointziSDK with all the UIViewControllers     |    
-|                                    | `name` - integrates PointSDK with given controller eg: controllers: ["LoginViewController"]  |                     
-|                                    | `pattern` - replaces the controllers matching the pattern eg controllers: ["Login*"]     |  
+| Key            |   Example        |
+| -------------  | :-------------:   | 
+| controllers    |                   | 
+|  `*`           |  integrates Pointzi SDK with all the UIViewControllers     |     
+|  `name`        |  integrates Point SDK with the given controller eg: controllers: ["LoginViewController"]  |                     
+|  `pattern`     |  replaces the controllers matching the pattern eg controllers: ["Login*"]     |  
 
                 
                                
