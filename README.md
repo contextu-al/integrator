@@ -46,8 +46,8 @@ integrator:
 | projectname                        | Name of the Project     |     |
 | projectpath                        | Path to the project      |                     |
 | giturl                             | Path to the project repo. If provided will clone the project to `projectpath`    |  |
-| appkey                             | :white_check_mark:    |    |
-| controllers                        | :white_check_mark:    |  |
+| appkey                             | App key, It's avialable in the dashboard    |    |
+| controllers                        | Arrays of the UIViewControllers the integrates PointziSDK   |  |
 
 
 |    Key        |             Comments                                         | 
@@ -56,9 +56,9 @@ integrator:
 | projectpath   | Path to the project                                          |                       
 | giturl        | Path to the project repo. If provided will clone the project to `projectpath`|            
 | appkey        | App key, It avialable in the dashboard   |                                         |       
-| controllers   | Arrays of the UIViewControllers to replace   |
+| controllers   | Arrays of the UIViewControllers the integrates PointziSDK    |
 |               | Example:
-|               |   `*` integrates PointSDK with all the UIViewControllers   |
+|               |   `*` integrates PointziSDK with all the UIViewControllers   |
 |               |   `name` - integrates PointSDK with given controller eg: controllers: ["LoginViewController"]   | 
 |               |   `pattern` - replaces the controllers matching the pattern eg controllers: ["Login*"]    |
                 
