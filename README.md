@@ -44,11 +44,11 @@ integrator:
 | -------------                      |    :-------------:   | 
 | projectname                        | Name of the Project     |    
 | projectpath                        | Path to the project      |                     
-| giturl                             | Path to the project repo. If provided will clone the project to `projectpath`    |  
+| giturl                             | Path to the project repo. If provided will clone the project into `projectpath`    |  
 | appkey                             | App key, It's avialable in the dashboard    |    
 | controllers                        | Arrays of the UIViewControllers that integrates PointziSDK   |  
 
-### Examples
+### Congfiurations
 
 | Key            |   Example        |
 | -------------  | :-------------:   | 
