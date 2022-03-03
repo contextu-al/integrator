@@ -1,0 +1,6 @@
+integrator:
+  projectname: TestIntegrator
+  projectpath: /Users/ganeshfaterpekar/Documents/SaiProjects/Development/Pointzi_SH/ios_sdk_packages/SampleiOSProject
+  giturl: https://gitlab.com/pointzi/sdks/ios/testintegrator.git
+  appkey: APP_KEY
+  controllers: ["*"]
