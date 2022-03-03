@@ -4,6 +4,7 @@ Command-line utility for integrating Pointzi sdk
 
 ## Overview
 Integrator is a Command-line utility for integrating Pointzi sdk into your apps. 
+
 It performs the all the neccessary integration steps mention here https://dashboard.pointzi.com/docs/sdks/ios/integration/ 
 
 ## System Requirements
@@ -35,6 +36,8 @@ integrator:
   appkey: APP_KEY
   controllers: ["*"]
 ```
+## Config Yml Examples
+
 |    Key        |             Comments                                         | 
 | ------------- :-------------------------------------------------------------:|                                              
 | projectname   | Name of the Project                                          | 
