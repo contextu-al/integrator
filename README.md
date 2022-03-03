@@ -43,10 +43,10 @@ integrator:
 
 | Requirement                        |   Implemented        | Comments                                           |
 | -------------                      |    :-------------:   | :-----                                             |
-| projectname                        | :white_check_mark:    |     |
-| projectpath 13                     | :white_check_mark:    |                     |
-| giturl Patterns                    | :white_check_mark:    |  |
-| appkey Management                  | :white_check_mark:    |    |
+| projectname                        | Name of the Project     |     |
+| projectpath 13                     | Path to the project      |                     |
+| giturl                             | :white_check_mark:    |  |
+| appkey                             | :white_check_mark:    |    |
 | controllers                        | :white_check_mark:    |  |
 
 
