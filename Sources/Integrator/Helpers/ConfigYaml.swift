@@ -17,7 +17,7 @@ struct ConfigDetails : Codable {
     var projectpath: String?
     var giturl: String?
     var appkey: String?
-    var controllers: String?
+    var controllers: [String]?
     
     var name: String {
         if let projetName = projectname {
@@ -43,6 +43,12 @@ struct ConfigDetails : Codable {
             return key
         }
         return ""
+    }
+    var controller: [String] {
+        if let controller = controllers {
+            return controller
+        }
+        return []
     }
     
 }

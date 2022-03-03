@@ -77,7 +77,7 @@ struct InstallSDK: ParsableCommand {
 
     }
     
-    func install_On_Git_project(configFilePath: String = "/Users/ganeshfaterpekar/Desktop/config.yml") throws {
+    func install_On_Git_project(configFilePath: String) throws {
         let configYmlData = try? read_file(filePath: configFilePath)
         var configYml = ConfigDetails()
         
@@ -90,10 +90,11 @@ struct InstallSDK: ParsableCommand {
         }
     
         go_to_project_folder(path: configYml.path)
-        gitClone(url:configYml.git)
         
-       //var finalPath = "\(configYml.path)/\(configYml.name.lowercased())"
-        
+        if(configYml.git != "" ) {
+           gitClone(url:configYml.git)
+        }
+       
         var finalPath = "\(configYml.path)/\(configYml.name)"
         
         
@@ -117,16 +118,15 @@ struct InstallSDK: ParsableCommand {
         try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
         
         go_to_project_folder(path: finalPath+"/"+configYml.name)
-        try performSwiftIntegraton(projectName: configYml.name, appkey: configYml.key) 
+        try performSwiftIntegraton(projectName: configYml.name, appkey: configYml.key ,controllers: configYml.controller)
+        
+        go_to_project_folder(path: finalPath)
+        replace_bases_classes (projetName: configYml.name,controllers: configYml.controller)
         
         openXcodeProject(path: finalPath ,name: configYml.name)
         
     }
     
-    
-    func install_On_local_project() {
-        
-    }
     
     func performPodsPreCheck(projectName: String) {
 
@@ -145,10 +145,10 @@ struct InstallSDK: ParsableCommand {
         gitInit()
     }
    
-    func performSwiftIntegraton(projectName: String , appkey: String) throws {
+    func performSwiftIntegraton(projectName: String , appkey: String , controllers:[String]) throws {
         do {
             try add_Intializer_In_AppDelegate (projectName : projectName, app_key: appkey)
-                replace_bases_classes()
+               
             
         } catch {
                 print(error)

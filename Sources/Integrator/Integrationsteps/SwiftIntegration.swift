@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 let searchPattern = """
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 """
@@ -23,8 +24,11 @@ func add_Intializer_In_AppDelegate(projectName : String , app_key:String) throws
     try search_pattern(fileName: "AppDelegate.swift", pattern: searchExpression, replacemantString: intializerString)
 }
 
-func replace_bases_classes() {
-    let _ = shell(command: "sed -i '' 's/UIViewController/StreetHawkBaseViewController/g' ViewController.swift")
+func replace_bases_classes(projetName: String ,controllers : [String]) {
+    controllers.forEach { controller in
+     let command = "find \(projetName)  -type f -name \"\(controller).swift\" -print|xargs perl -i -pe \'s/UIViewController/PointziBaseViewController/g\'"
+     let _ = shell(command: command)
+    }
 }
 
 func add_shCuid() {}
