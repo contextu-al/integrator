@@ -41,16 +41,14 @@ integrator:
 ## Examples 
 
 
-| Requirement                        |   Implemented        | Comments                                           |
-| -------------                      |    :-------------:   | :-----                                             |
-| projectname                        | Name of the Project     |     |
-| projectpath                        | Path to the project      |                     |
-| giturl                             | Path to the project repo. If provided will clone the project to `projectpath`    |  |
-| appkey                             | App key, It's avialable in the dashboard    |    |
-| controllers                        | Arrays of the UIViewControllers the integrates PointziSDK   |  |
-|                                    | Example:   |  |
-|                                    |   `*` integrates PointziSDK with all the UIViewControllers  |  |
-|                                    |    |  |
+| Requirement                        |   Implemented        |
+| -------------                      |    :-------------:   | 
+| projectname                        | Name of the Project     |    
+| projectpath                        | Path to the project      |                     
+| giturl                             | Path to the project repo. If provided will clone the project to `projectpath`    |  
+| appkey                             | App key, It's avialable in the dashboard    |    
+| controllers                        | Arrays of the UIViewControllers the integrates PointziSDK   |  
+
 
 
 |    Key        |             Comments                                         | 
