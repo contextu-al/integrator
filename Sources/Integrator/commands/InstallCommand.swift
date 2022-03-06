@@ -67,7 +67,7 @@ struct InstallSDK: ParsableCommand {
         try performSwiftIntegraton(config: configYml)
         
         go_to_project_folder(path: finalPath)
-        replace_bases_classes (projetName: configYml.name,controllers: configYml.controller)
+        replace_bases_classes (projetName: configYml.name,controllers: configYml.controller, type: configYml.type)
         
         openXcodeProject(path: finalPath ,name: configYml.name)
         
@@ -90,15 +90,7 @@ struct InstallSDK: ParsableCommand {
     func createTemporaryGitRepo() {
         gitInit()
     }
-   
-//    func performSwiftIntegraton(projectName: String , appkey: String , controllers:[String]) throws {
-//        do {
-//            try add_Intializer_In_Swift_AppDelegate (projectName : projectName, app_key: appkey)
-//        } catch {
-//                print(error)
-//        }
-//    }
-    
+       
     func performSwiftIntegraton(config : ConfigDetails) throws {
         do {
             switch config.type {

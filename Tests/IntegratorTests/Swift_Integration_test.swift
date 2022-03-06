@@ -48,15 +48,14 @@ final class Swift_Integraton_test : XCTestCase {
         //go_to_project_folder(path: "/Users/ganeshfaterpekar/Documents/SaiProjects/Development/Pointzi_SH/ios_sdk_packages/integrator")
         //let r  = shell(command: "sh process_yaml.sh config.yml")
         //read_file_from_bundle()
-        
         let configYmlData = try? read_file(filePath: "/Users/ganeshfaterpekar/Desktop/config.yml")
-         let  result = try decodeConfigYML(ymlString: configYmlData!)
+        let  result = try decodeConfigYML(ymlString: configYmlData!)
         
         switch result?.integrator?.type {
-        case .Swift :
-             print("Swift")
-        default :
-            break;
+            case .Swift :
+                print("Swift")
+            default :
+                break;
         }
     }
     

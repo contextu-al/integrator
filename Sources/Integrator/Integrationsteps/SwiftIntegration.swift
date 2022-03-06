@@ -16,7 +16,7 @@ let replacemantStringSwift = """
 """
 
 
-let searchExpressionObjc = ".*didFinishLaunchingWithOptions.*->\\launchOptions\\s*\\n*\\{"
+let searchExpressionObjc = ".*didFinishLaunchingWithOptions.*\\s*\\n*\\{"
 let replacemantStringObjc = """
    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   
@@ -36,11 +36,27 @@ func add_Intializer_In_Obj_AppDelegate(config: ConfigDetails) throws {
     try search_pattern(fileName: "AppDelegate.m", pattern: searchExpressionObjc, replacemantString: intializerString)
 }
 
-func replace_bases_classes(projetName: String ,controllers : [String]) {
+func replace_bases_classes(projetName: String ,controllers : [String], type : ProjectType) {
+    let extensionType = getExtensionType(type: type)
     controllers.forEach { controller in
-     let command = "find \(projetName)  -type f -name \"\(controller).swift\" -print|xargs perl -i -pe \'s/UIViewController/PointziBaseViewController/g\'"
+     let command = "find \(projetName)  -type f -name \"\(controller)\(extensionType)\" -print|xargs perl -i -pe \'s/UIViewController/PointziBaseViewController/g\'"
      let _ = shell(command: command)
     }
 }
+
+func getExtensionType(type : ProjectType) -> String {
+    
+    switch type {
+    case .ObjC:
+        return ".h"
+    case .Swift:
+        return ".swift"
+    case .SwiftUI:
+        return ""
+    case .unknown:
+        return ""
+    }
+}
+
 
 func add_shCuid() {}
