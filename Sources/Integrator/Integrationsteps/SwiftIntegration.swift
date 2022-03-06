@@ -7,21 +7,33 @@
 
 import Foundation
 import SwiftUI
-let searchPattern = """
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-"""
-let searchExpression = ".*didFinishLaunchingWithOptions.*->\\sBool\\s*\\n*\\{"
 
-let replacemantString = """
+let searchExpressionSwift = ".*didFinishLaunchingWithOptions.*->\\sBool\\s*\\n*\\{"
+let replacemantStringSwift = """
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   
            Pointzi.sharedInstance().registerInstall(forApp: "MY_APP_KEY", withDebugMode: true)
 """
 
 
-func add_Intializer_In_AppDelegate(projectName : String , app_key:String) throws {
-    let intializerString = replacemantString.replacingOccurrences(of: "MY_APP_KEY", with: app_key)
-    try search_pattern(fileName: "AppDelegate.swift", pattern: searchExpression, replacemantString: intializerString)
+let searchExpressionObjc = ".*didFinishLaunchingWithOptions.*->\\launchOptions\\s*\\n*\\{"
+let replacemantStringObjc = """
+   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
+          [POINTZI registerInstallForApp:@"MY_APP_KEY" withDebugMode:YES];
+"""
+
+
+
+func add_Intializer_In_Swift_AppDelegate(config: ConfigDetails) throws {
+    let intializerString = replacemantStringSwift.replacingOccurrences(of: "MY_APP_KEY", with: config.key)
+    try search_pattern(fileName: "AppDelegate.swift", pattern: searchExpressionSwift, replacemantString: intializerString)
+}
+
+
+func add_Intializer_In_Obj_AppDelegate(config: ConfigDetails) throws {
+    let intializerString = replacemantStringObjc.replacingOccurrences(of: "MY_APP_KEY", with: config.key)
+    try search_pattern(fileName: "AppDelegate.m", pattern: searchExpressionObjc, replacemantString: intializerString)
 }
 
 func replace_bases_classes(projetName: String ,controllers : [String]) {

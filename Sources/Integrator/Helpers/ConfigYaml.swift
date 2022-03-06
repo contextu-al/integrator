@@ -12,9 +12,21 @@ struct ConfigYml: Codable {
     var integrator: ConfigDetails?
 }
 
+enum ProjectType: String,Codable {
+    case ObjC = "objc"
+    case Swift = "swift"
+    case SwiftUI = "swiftui"
+    case unknown = "unknown"
+    
+    init() {
+        self = .Swift
+    }
+}
+
 struct ConfigDetails : Codable {
     var projectname: String?
     var projectpath: String?
+    var projectType: String?
     var giturl: String?
     var appkey: String?
     var controllers: [String]?
@@ -31,6 +43,15 @@ struct ConfigDetails : Codable {
         }
         return ""
     }
+    
+    var type: ProjectType {
+        if let type = projectType  {
+               
+            return ProjectType(rawValue:type.lowercased()) ?? .unknown
+        }
+        return .unknown
+    }
+
     var git: String {
         if let giturl = giturl {
             return giturl

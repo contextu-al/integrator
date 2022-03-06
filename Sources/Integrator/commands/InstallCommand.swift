@@ -64,7 +64,7 @@ struct InstallSDK: ParsableCommand {
         try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
         
         go_to_project_folder(path: finalPath+"/"+configYml.name)
-        try performSwiftIntegraton(projectName: configYml.name, appkey: configYml.key ,controllers: configYml.controller)
+        try performSwiftIntegraton(config: configYml)
         
         go_to_project_folder(path: finalPath)
         replace_bases_classes (projetName: configYml.name,controllers: configYml.controller)
@@ -91,9 +91,27 @@ struct InstallSDK: ParsableCommand {
         gitInit()
     }
    
-    func performSwiftIntegraton(projectName: String , appkey: String , controllers:[String]) throws {
+//    func performSwiftIntegraton(projectName: String , appkey: String , controllers:[String]) throws {
+//        do {
+//            try add_Intializer_In_Swift_AppDelegate (projectName : projectName, app_key: appkey)
+//        } catch {
+//                print(error)
+//        }
+//    }
+    
+    func performSwiftIntegraton(config : ConfigDetails) throws {
         do {
-            try add_Intializer_In_AppDelegate (projectName : projectName, app_key: appkey)
+            switch config.type {
+                case .Swift:
+                    try add_Intializer_In_Swift_AppDelegate (config: config)
+                case .ObjC:
+                    try add_Intializer_In_Obj_AppDelegate(config: config)
+                case .SwiftUI:
+                    break
+                case .unknown:
+                   break
+            }
+            
         } catch {
                 print(error)
         }
