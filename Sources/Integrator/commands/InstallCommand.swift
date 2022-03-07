@@ -76,7 +76,7 @@ struct InstallSDK: ParsableCommand {
         try performSwiftIntegraton(config: configYml)
         
         go_to_project_folder(path: finalPath)
-        print("📁 Relacing base classes")
+        print("📁 Replacing base classes")
         replace_bases_classes (projetName: configYml.name,controllers: configYml.controller, type: configYml.type)
         
         print("📬 Opening the project")
