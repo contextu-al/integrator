@@ -25,6 +25,9 @@ struct InstallSDK: ParsableCommand {
     }
     
     func install_contextual_sdk(configFilePath: String) throws {
+    
+        print("📦 Decoding the config file ...")
+        
         let configYmlData = try? read_file(filePath: configFilePath)
         var configYml = ConfigDetails()
         
@@ -35,10 +38,11 @@ struct InstallSDK: ParsableCommand {
             
             configYml = result
         }
-    
+        print("🚀 Starting to integrate contexu.al sdk with the project : \(configYml.name)...")
         go_to_project_folder(path: configYml.path)
         
         if(configYml.git != "" ) {
+           print("🌍 Cloning repo: \(configYml.git)")
            gitClone(url:configYml.git)
         }
        
@@ -59,9 +63,12 @@ struct InstallSDK: ParsableCommand {
         copy_xcode_helper_script()
         
         performPodsPreCheck(projectName: configYml.name)
+        
+        print("☕ Adding cocoa pods")
         try addPodSteps()
         
         if (configYml.type == .Swift) {
+           print("🔥 Adding Bridging Headers")
            try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
         }
         
@@ -69,9 +76,12 @@ struct InstallSDK: ParsableCommand {
         try performSwiftIntegraton(config: configYml)
         
         go_to_project_folder(path: finalPath)
+        print("📁 Relacing base classes")
         replace_bases_classes (projetName: configYml.name,controllers: configYml.controller, type: configYml.type)
         
+        print("📬 Opening the project")
         openXcodeProject(path: finalPath ,name: configYml.name)
+        print("✅ All done! 🎉  Good luck with your project! 🙌")
         
     }
     
@@ -118,7 +128,6 @@ func addBridgingHeaders(projectName: String ,projectPath: String) throws {
 }
 
 func openXcodeProject(path: String, name: String) {
-    print("Opening xcode project")
     go_to_project_folder(path: path)
     _  = shell(command: "open \(path)/\(name).xcworkspace")
 }
