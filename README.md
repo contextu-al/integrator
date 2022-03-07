@@ -59,12 +59,19 @@ integrator:
 
 ### Integrator Output
 📦 Decoding the config file ...
+
 🚀 Starting to integrate contexu.al sdk with the project : IntegratorSwift...
+
 🌍 Cloning repo: https://gitlab.com/pointzi/sdks/ios/sampleapps/integratorswift.git
-☕ Adding cocoa pods
+
+☕ Adding cocoa pods\n
+
 🔥 Adding Bridging Headers
+
 📁 Replacing base classes
+
 📬 Opening the project
+
 ✅ All done! 🎉  Good luck with your project! 🙌                
                                
                   
