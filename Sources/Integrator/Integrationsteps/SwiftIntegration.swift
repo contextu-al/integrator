@@ -15,34 +15,27 @@ let replacemantStringSwift = """
            Pointzi.sharedInstance().registerInstall(forApp: "MY_APP_KEY", withDebugMode: true)
 """
 
-
-let searchExpressionObjc = ".*didFinishLaunchingWithOptions.*\\s*\\n*\\{"
-let replacemantStringObjc = """
-   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  
-          [POINTZI registerInstallForApp:@"MY_APP_KEY" withDebugMode:YES];
-"""
-
-
-
 func add_Intializer_In_Swift_AppDelegate(config: ConfigDetails) throws {
     let intializerString = replacemantStringSwift.replacingOccurrences(of: "MY_APP_KEY", with: config.key)
     try search_pattern(fileName: "AppDelegate.swift", pattern: searchExpressionSwift, replacemantString: intializerString)
 }
 
 
-func add_Intializer_In_Obj_AppDelegate(config: ConfigDetails) throws {
-    let intializerString = replacemantStringObjc.replacingOccurrences(of: "MY_APP_KEY", with: config.key)
-    try search_pattern(fileName: "AppDelegate.m", pattern: searchExpressionObjc, replacemantString: intializerString)
-}
-
 func replace_bases_classes(projetName: String ,controllers : [String], type : ProjectType) {
     let extensionType = getExtensionType(type: type)
     controllers.forEach { controller in
      let command = "find \(projetName)  -type f -name \"\(controller)\(extensionType)\" -print|xargs perl -i -pe \'s/UIViewController/PointziBaseViewController/g\'"
      let _ = shell(command: command)
+        switch type {
+        case .ObjC:
+            include_Streehawk_Header(projetName: projetName, controller: controller, extensionType: extensionType)
+        default :
+            break
+        }
     }
 }
+
+
 
 func getExtensionType(type : ProjectType) -> String {
     

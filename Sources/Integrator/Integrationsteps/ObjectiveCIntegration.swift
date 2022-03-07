@@ -6,3 +6,31 @@
 //
 
 import Foundation
+
+let searchExpressionObjc = ".*didFinishLaunchingWithOptions.*\\s*\\n*\\{"
+let replacemantStringObjc = """
+   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
+          [POINTZI registerInstallForApp:@"MY_APP_KEY" withDebugMode:YES];
+"""
+
+
+func add_Intializer_In_Obj_AppDelegate(config: ConfigDetails) throws {
+    let intializerString = replacemantStringObjc.replacingOccurrences(of: "MY_APP_KEY", with: config.key)
+    try search_pattern(fileName: "AppDelegate.m", pattern: searchExpressionObjc, replacemantString: intializerString)
+}
+
+
+func include_Streehawk_Header(projetName: String ,controller : String, extensionType: String) {
+    let find = "import"
+    let importStatment = "import <UIKit/UIKit.h>"
+    print("\(controller).h")
+    let command = "find \(projetName)  -type f -name \"\(controller)\(extensionType)\" -exec sed -i '' '1s/^/#import \"StreetHawkCore_Pointzi.h\"/g' {} +"
+    //let command = "find \(projetName)  -type f -name ViewController.h -print|xargs perl -i -pe \'s/import/Ssssssss/g\'"
+
+    
+    // find integratorObjc  -type f -name "ViewContro*.*" -exec sed -i '' '1s/^/#import \"StreetHawkCore_Pointzi.h\" \n/g' {} +
+    let res = shell(command: command)
+    print(res)
+    
+}

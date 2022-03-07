@@ -61,7 +61,9 @@ struct InstallSDK: ParsableCommand {
         performPodsPreCheck(projectName: configYml.name)
         try addPodSteps()
         
-        try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
+        if (configYml.type == .Swift) {
+           try addBridgingHeaders(projectName: configYml.name, projectPath: configYml.path)
+        }
         
         go_to_project_folder(path: finalPath+"/"+configYml.name)
         try performSwiftIntegraton(config: configYml)
