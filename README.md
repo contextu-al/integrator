@@ -1,11 +1,11 @@
 # Integrator
 
-Command-line utility for integrating Pointzi sdk
+Command-line utility for integrating Contextu.al sdk
 
 ## Overview
-Integrator is a Command-line utility for integrating Pointzi sdk into your apps. 
+Integrator is a Command-line utility for integrating Contextu.al sdk into your apps. 
 
-It performs the all the neccessary integration steps mention here https://dashboard.pointzi.com/docs/sdks/ios/integration/ 
+It performs the all the neccessary integration steps mention here https://dashboard.contextu.al/docs/sdks/ios/integration/ 
 
 ## System Requirements
 * Xcode 13.x
@@ -15,7 +15,7 @@ It performs the all the neccessary integration steps mention here https://dashbo
 ## Setup
 
 ```
-git clone https://gitlab.com/pointzi/sdks/ios/integrator.git
+git clone https://github.com/contextu-al/integrator.git
 
 ```
 
@@ -47,13 +47,13 @@ integrator:
 | projectType                        | Swift, Objc
 | giturl                             | Path to the project repo. If provided will clone the project into `projectpath`    |  
 | appkey                             | App key, It's avialable in the dashboard    |    
-| controllers                        | Arrays of the UIViewControllers that integrates PointziSDK   |  
+| controllers                        | Arrays of the UIViewControllers that integrates ContextualSDK   |  
 
 ### Congfiurations
 
 | Key - controllers            |   Example        |
 | -------------  | :-------------:   | 
-|  `*`           |  integrates Pointzi SDK with all the UIViewControllers     |     
+|  `*`           |  integrates Contextual SDK with all the UIViewControllers     |     
 |  `name`        |  integrates Point SDK with the given controller eg: controllers: ["LoginViewController"]  |                     
 |  `pattern`     |  replaces the controllers matching the pattern eg controllers: ["Login*"]     |  
 
