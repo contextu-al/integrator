@@ -33,7 +33,7 @@ integrator:
   projectname: IntegratorSwift
   projectType: Swift
   projectpath: /Users/hawks/Documents/projects/SampleiOSProjects
-  giturl: https://gitlab.com/pointzi/sdks/ios/sampleapps/integratorswift.git
+  giturl: https://github.com/contextu-al/integrator
   appkey: APP_KEY
   controllers: ["*"]
 ```
@@ -63,7 +63,7 @@ integrator:
 
 🚀  Starting to integrate contexu.al sdk with the project : IntegratorSwift...
 
-🌍  Cloning repo: https://gitlab.com/pointzi/sdks/ios/sampleapps/integratorswift.git
+🌍  Cloning repo: https://github.com/contextu-al/integrator
 
 ☕  Adding cocoa pods\n
 
