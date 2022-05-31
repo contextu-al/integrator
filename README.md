@@ -3,7 +3,7 @@
 Command-line utility for integrating Contextu.al sdk
 
 ## Overview
-Integrator is a Command-line utility for integrating Contextu.al sdk into your apps. 
+Integrator is a Command-line utility for automating the integratation Contextu.al sdk into your apps. 
 
 It performs the all the neccessary integration steps mention here https://dashboard.contextu.al/docs/sdks/ios/integration/ 
 
@@ -12,50 +12,12 @@ It performs the all the neccessary integration steps mention here https://dashbo
 * iOS 13
 * Swift Package Manager
 
-## Setup
-
-```
-git clone https://github.com/contextu-al/integrator.git
-
-```
 
 ## Usage
-After cloning the project , CD to the integrator project and run the following commands
-```
-swift build
-swift run Integrator install "path_to_config.yml"
 
-```
+    curl https://contextu.al/integrator
+    integrator <APP_KEY> <PATH_TO_XCODE_PROJECT>
 
-## Config Yml
-```
-integrator:
-  projectname: IntegratorSwift
-  projectType: Swift
-  projectpath: /Users/hawks/Documents/projects/SampleiOSProjects
-  giturl: https://github.com/contextu-al/integrator
-  appkey: APP_KEY
-  controllers: ["*"]
-```
-
-### Config yml details  
-
-| Key                        |   Comments        |
-| -------------                      |    :-------------:   | 
-| projectname                        | Name of the Project     |    
-| projectpath                        | Path to the project      | 
-| projectType                        | Swift, Objc
-| giturl                             | Path to the project repo. If provided will clone the project into `projectpath`    |  
-| appkey                             | App key, It's avialable in the dashboard    |    
-| controllers                        | Arrays of the UIViewControllers that integrates ContextualSDK   |  
-
-### Congfiurations
-
-| Key - controllers            |   Example        |
-| -------------  | :-------------:   | 
-|  `*`           |  integrates Contextual SDK with all the UIViewControllers     |     
-|  `name`        |  integrates Point SDK with the given controller eg: controllers: ["LoginViewController"]  |                     
-|  `pattern`     |  replaces the controllers matching the pattern eg controllers: ["Login*"]     |  
 
 ### Integrator Output
 ```
@@ -81,7 +43,6 @@ integrator:
 
 Discord: https://discord.gg/hPayYaagV8
                                
-                  
-               
-
-                                                                                 
+TODO
+- setup binary build using github actions
+- Make a binary distribution
